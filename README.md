@@ -23,3 +23,22 @@ Furthermore I will include a developer diary for following along the process.
 - Two different databases (One for important userdata (SQL based), one for "unimportant" chat data (NoSQL based)).
 - 20h Timeframe spread across one week (starting 18.09.2019 - Time tracking within Toggl)
 - Writing a developer diary (After every coding session track write down what you've done, why you've done it the way, what you've learned etc...)
+
+## File Scheme:
+
+- Backend:
+
+Backend has two folders. One for the dev version of the server (whichever it will be at the end) and one for the RTP version (Final).
+
+- Frontend:
+
+Frontend has two folders. One for the dev version of the server (whichever it will be at the end) and one for the RTP version (Final).
+
+- DevDiary:
+
+Folder to give you insight in my thought patterns while developing this small project
+
+- Documentation:
+
+I will try to provide a proper documentation of the project if there is enough time for it.
+This will be done with Docusaurus in this folder.
