@@ -1,21 +1,15 @@
-#17.09.2019
+# 17.09.2019
 
-##First thoughts
+## First thoughts
 
-###Main challenges:
+### Main challenges
 
 - Handling of username and password
 
 As the frontend password needs to be carried safly to the backend we need to take extra care of this.
 First idea:
 
-_Entering username and password_
-_Hashing password with a global salt_
-_Sending REST request to backend with username and hash_
-_Check username and passwordhash and compare it with internaly hashed password ("user specific salt" (unique) for extra security)_
-_Returning validity and create session token_
-_Put session token to browser cache (maybe local storage? **Further reading about actual best practices necessary!**)_
-_Check session token with every request to the backend_
+-_Entering username and password_ -_Hashing password with a global salt_ -_Sending REST request to backend with username and hash_ -_Check username and passwordhash and compare it with internaly hashed password ("user specific salt" (unique) for extra security)_ -_Returning validity and create session token_ -_Put session token to browser cache (maybe local storage? **Further reading about actual best practices necessary!**)_ -_Check session token with every request to the backend_
 
 Remarks:
 
@@ -35,13 +29,13 @@ This would mean we would have to iterate twice over the Chats table when we want
 This seems to be really inefficient. If the time is available I would like to **remodel** this.
 Keep in mind!
 
-###Remarks:
+### Remarks
 
 - As real time update of chat is not necessary socket.io or similiar stuff seems to be not necessary
 - It makes sense to store chat and chat messages within a NoSQL database and users and tokens in a SQL database
 - It would make sense to make it mandatory to read up this notes before every coding sessions or transfer critical tasks to a **task tracker** or something similar
 
-#Next Todos:
+# Next Todos
 
 - Setting up Toggl
 - Setting up some Task Tracker (Maybe Trello?)
@@ -53,3 +47,52 @@ Keep in mind!
 - Deciding upon Foundation vs Bootstrap
 - Defining actual order of module creation and tasks
 - Get started with the frontend and backend
+
+# Possible Database Tables
+
+First Draft as of Brainstorming 17.09.2019
+
+## SQL Database
+
+### User
+
+- UserId (int)
+- LoginName (string)
+- Password (string)
+- E-Mail (string)
+- Last Login (Date)
+- IsVerified (bool)
+
+### UserSession
+
+- SessionId (int)
+- SessionKey (string)
+- UserId (int)
+- IsActive (bool) //Maybe ommitable
+- ExpirationDate (Date)
+
+### VerificationTokens
+
+- TokenId (int)
+- Token (string)
+- UserId (int) //Maybe ommitable
+- IsActive (book) //Maybe ommitable
+- ExpirationDate (Date)
+
+### Chat
+
+- ChatId (int)
+- ChatUser1 (int)
+- ChatUser2 (int)
+- State (int?) (Define state properly! Right now just "sent" and "read" come to mind)
+- CreationDate (Date) //For information reasons
+- LastPostDate (Date)
+
+### Messages
+
+- MessageId (int)
+- Message (string)
+- UserId (int)
+- ChatId (int)
+- State (int?) (Define state properly! Right now just "sent" and "read" come to mind)
+- TimeStamp (Date)
