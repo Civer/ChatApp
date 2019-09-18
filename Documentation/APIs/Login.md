@@ -21,25 +21,28 @@ errors| Array| An Array with an object stating the errormessage (Errormessage ha
 
 ## Example of valid return
 
-> {
-> validLogin: true,
-> token: ABCDEFGH123456,
-> errors: null
-> }
+```
+{
+    validLogin: true,
+    token: ABCDEFGH123456,
+    errors: null
+}
+```
 
 ## Example of invalid login
 
-> {
-> validLogin: false,
-> token: null,
-> errors: [
->
-> > {
-> > id: 100,
-> > message: "Login failed. Login is invalid or password is wrong.
-> > }
-> > ]
-> > }
+```
+{
+    validLogin: false,
+    token: null,
+    errors: [
+        {
+        id: 100,
+        message: "Login failed. Login is invalid or password is wrong.
+        }
+    ]
+}
+```
 
 ## Error Codes
 

@@ -21,40 +21,42 @@ errors| Array| An Array with an object stating the errormessage (Errormessage ha
 
 Example is called by user with Id 200
 
-> {
-> validCall: true,
-> users: [
-
-    {
-        id: 100,
-        name: "Christian"
-    },
-    {
-        id: 200,
-        name: "Martin"
-    },
-    {
-        id: 300,
-        name: "Peter"
-    }
-
-> ],
-> errors: null
-> }
+```
+{
+    validCall: true,
+    users: [
+        {
+            id: 100,
+            name: "Christian"
+        },
+        {
+            id: 200,
+            name: "Martin"
+        },
+        {
+            id: 300,
+            name: "Peter"
+        }
+    ],
+    errors: null
+}
+```
 
 ## Example of an error
 
-> {
-> validCall: false,
-> users: null,
-> errors: [
->
-> > {
-> > id: 900,
-> > message: "There was a problem with loading chats."
-> > }
-> > ]
-> > }
+```
+{
+    validCall: false,
+    users: null,
+    errors: [
+        {
+            id: 900,
+            message: "There was a problem with loading chats."
+        }
+    ]
+}
+
+```
 
 ## Error Codes
 

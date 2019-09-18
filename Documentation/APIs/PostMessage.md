@@ -20,23 +20,26 @@ errors| Array| An Array with an object stating the errormessage (Errormessage ha
 
 ## Example of valid return
 
-> {
-> validPost: true, // Will force a reload of message window
-> errors: null
-> }
+```
+{
+    validPost: true, // Will force a reload of message window
+    errors: null
+}
+```
 
 ## Example of invalid Token request
 
-> {
-> validPost: false,
-> errors: [
->
-> > {
-> > id: 100,
-> > message: "Message sending failed."
-> > }
-> > ]
-> > }
+```
+{
+    validPost: false,
+    errors: [
+        {
+            id: 100,
+            message: "Message sending failed."
+        }
+    ]
+}
+```
 
 ## Error Codes
 

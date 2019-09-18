@@ -17,9 +17,11 @@ validLogout |bool | States if a logout was sucessful. User will be logged out ei
 
 ## Example of return
 
-> {
-> valivalidLogout: true,
-> }
+```
+{
+    valivalidLogout: true,
+}
+```
 
 ## More information
 

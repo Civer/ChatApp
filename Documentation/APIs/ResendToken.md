@@ -19,28 +19,31 @@ errors| Array| An Array with an object stating the errormessage (Errormessage ha
 
 ## Example of valid return
 
-> {
-> validRegistration: true,
-> successMessage: {
-> id: 100
-> message: "The Mail was send a second time. Be aware the token from the first mail is now invalid."
-> },
-> errors: null
-> }
+```
+{
+    validRegistration: true,
+    successMessage: {
+        id: 100
+        message: "The Mail was send a second time. Be aware the token from the first mail is now invalid."
+    },
+    errors: null
+}
+```
 
 ## Example of an error
 
-> {
-> validRegistration: false,
-> successMessage: null,
-> errors: [
->
-> > {
-> > id: 100,
-> > message: "Your account is already activated."
-> > }
-> > ]
-> > }
+```
+{
+    validRegistration: false,
+    successMessage: null,
+    errors: [
+        {
+            id: 100,
+            message: "Your account is already activated."
+        }
+    ]
+}
+```
 
 ## Error Codes
 

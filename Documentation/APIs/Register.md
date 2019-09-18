@@ -20,28 +20,31 @@ errors| Array| An Array with an object stating the errormessage (Errormessage ha
 
 ## Example of valid return
 
-> {
-> validRegistration: true,
-> successMessage: {
-> id: 100
-> message: "Registration completed. Please confirm your Account via Mail before you login."
-> },
-> errors: null
-> }
+```
+{
+    validRegistration: true,
+    successMessage: {
+        id: 100
+        message: "Registration completed. Please confirm your Account via Mail before you login."
+    },
+    errors: null
+}
+```
 
 ## Example of an error
 
-> {
-> validRegistration: false,
-> successMessage: null,
-> errors: [
->
-> > {
-> > id: 100,
-> > message: "Username is already taken."
-> > }
-> > ]
-> > }
+```
+{
+    validRegistration: false,
+    successMessage: null,
+    errors: [
+        {
+            id: 100,
+            message: "Username is already taken."
+        }
+    ]
+}
+```
 
 ## Error Codes
 

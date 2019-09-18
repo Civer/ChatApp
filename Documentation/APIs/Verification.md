@@ -19,28 +19,31 @@ errors| Array| An Array with an object stating the errormessage (Errormessage ha
 
 ## Example of valid return
 
-> {
-> validRegistration: true,
-> successMessage: {
-> id: 100
-> message: "Congratulations. You may now log in to the application!"
-> },
-> errors: null
-> }
+```
+{
+    validRegistration: true,
+    successMessage: {
+        id: 100
+        message: "Congratulations. You may now log in to the application!"
+    },
+    errors: null
+}
+```
 
 ## Example of invalid Token request
 
-> {
-> validRegistration: false,
-> successMessage: null,
-> errors: [
->
-> > {
-> > id: 100,
-> > message: "Something went wrong. Try to resend the token by pressing the link below."
-> > }
-> > ]
-> > }
+```
+{
+    validRegistration: false,
+    successMessage: null,
+    errors: [
+        {
+            id: 100,
+            message: "Something went wrong. Try to resend the token by pressing the link below."
+        }
+    ]
+}
+```
 
 ## Error Codes
 

@@ -23,44 +23,46 @@ errors| Array| An Array with an object stating the errormessage (Errormessage ha
 
 Example is called by user with Id 200
 
-> {
-> validCall: true,
-> chatMessages: [
->
-> > {
-> > messageId: 1000,
-> > userId: 100,
-> > message: "Hallo.",
-> > lastTimeAndDate: 18.09.2019 - 09:54,
-> > state: 1
-> > },
-> > {
-> > messageId: 1001,
-> > userId: 200,
-> > message: "Hey!",
-> > lastTimeAndDate: 18.09.2019 - 09:55,
-> > state: 2
-> > },
-> > ],
-> > error: null
-> > }
+```
+{
+    validCall: true,
+    chatMessages: [
+        {
+            messageId: 1000,
+            userId: 100,
+            message: "Hallo.",
+            lastTimeAndDate: 18.09.2019 - 09:54,
+            state: 1
+        },
+        {
+            messageId: 1001,
+            userId: 200,
+            message: "Hey!",
+            lastTimeAndDate: 18.09.2019 - 09:55,
+            state: 2
+        },
+    ],
+    error: null
+}
+```
 
 ## Example of an error
 
-> {
-> validCall: false,
-> chats: null,
-> errors: [
->
-> > {
-> > id: 100,
-> > message: "Oops! It seems you've not written any message yet."
-> > }
-> > ]
-> > }
+```
+{
+    validCall: false,
+    chats: null,
+    errors: [
+        {
+        id: 100,
+        message: "Oops! It seems you've not written any message yet."
+        }
+    ]
+}
+```
 
 ## Error Codes
 
 Code |Meaning
 100: No active message available (Message: Oops! It seems you've not written any message yet.)
-900: Session Token was not valid => This should perform a autologout in the future (Message: There was a problem with loading message.)
+900: Session Token was not valid =This should perform a autologout in the future (Message: There was a problem with loading message.)
