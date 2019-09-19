@@ -23,7 +23,7 @@ errors| Array| An Array with an object stating the errormessage (Errormessage ha
 {
     validRegistration: true,
     successMessage: {
-        id: 100
+        id: 100,
         message: "Congratulations. You may now log in to the application!"
     },
     errors: null

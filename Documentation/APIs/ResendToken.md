@@ -23,7 +23,7 @@ errors| Array| An Array with an object stating the errormessage (Errormessage ha
 {
     validRegistration: true,
     successMessage: {
-        id: 100
+        id: 100,
         message: "The Mail was send a second time. Be aware the token from the first mail is now invalid."
     },
     errors: null

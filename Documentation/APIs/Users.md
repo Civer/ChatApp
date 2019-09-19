@@ -1,4 +1,4 @@
-# API Documentation - All Users
+# API Documentation - Users
 
 ## Summary
 
@@ -31,10 +31,14 @@ Example is called by user with Id 200
         },
         {
             id: 200,
-            name: "Martin"
+            name: "Michel"
         },
         {
             id: 300,
+            name: "Martin"
+        },
+        {
+            id: 400,
             name: "Peter"
         }
     ],

@@ -24,7 +24,7 @@ errors| Array| An Array with an object stating the errormessage (Errormessage ha
 ```
 {
     validLogin: true,
-    token: ABCDEFGH123456,
+    token: "ABCDEFGH123456",
     errors: null
 }
 ```

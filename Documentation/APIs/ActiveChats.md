@@ -23,28 +23,28 @@ Example is called by user with Id 200
 
 ```
 {
-    validCall: true,
-    chats: [
+    "validCall": true,
+    "chats": [
         {
-            chatId: 1,
-            userId1: 100
-            userId2: 200
-            userName1: Name of First User of conversation
-            userName2: Name of Call User
-            lastTimeAndDate: 18.09.2019 - 09:43
-            state: 1
+            "chatId": 1,
+            "userId1": 100,
+            "userId2": 200,
+            "userName1": "Name of First User of conversation",
+            "userName2": "Name of Call User",
+            "lastTimeAndDate": "2019-09-19T08:50:49.696Z",
+            "state": 1
         },
         {
-            chatId: 4,
-            userId1: 200
-            userId2: 400
-            userName1: Name of Call User of conversation
-            userName2: Name of User with Id 400
-            lastTimeAndDate: 18.09.2019 - 09:43
-            state: 2
+            "chatId": 4,
+            "userId1": 200,
+            "userId2": 400,
+            "userName1": "Name of Call User of conversation",
+            "userName2": "Name of User with Id 400",
+            "lastTimeAndDate": "2019-09-19T08:50:49.696Z",
+            "state": 2
         }
     ],
-errors: null
+    "errors": null
 }
 ```
 
@@ -52,9 +52,9 @@ errors: null
 
 ```
 {
-    validCall: false,
-    chats: null,
-    errors: [
+    "validCall": false,
+    "chats": null,
+    "errors": [
         {
             id: 900,
             message: "There was a problem with loading chats."

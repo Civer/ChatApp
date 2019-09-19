@@ -1,5 +1,10 @@
 var express = require("express");
 var router = express.Router();
+var mysql = require('mysql');
+
+var con = mysql.createConnection({
+  host: 
+})
 
 //Defining Static Test Data
 var testData = {

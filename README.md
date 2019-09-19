@@ -19,7 +19,7 @@ Furthermore I will include a developer diary for following along the process.
 
 ## Personal Challenges:
 
-- Backend and Frontend will be hosted on different technologies (Backend: Node.js / Frontend: Dedicated Webserver (Apache/nginx)).
+- Structurally separate platforms for backend and frontend: Backend supported by node.js, frontend written in React/JS hosted on Apache/nginx
 - Two different databases (One for important userdata (SQL based), one for "unimportant" chat data (NoSQL based)).
 - 20h Timeframe spread across one week (starting 18.09.2019 - Time tracking within Toggl)
 - Writing a developer diary (After every coding session track write down what you've done, why you've done it the way, what you've learned etc...)

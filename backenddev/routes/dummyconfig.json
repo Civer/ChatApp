@@ -1,0 +1,8 @@
+{
+  "comment": "As real config is ignored through gitignore, use this dummy instead. Therefore remove 'dummy' prefix and this comment",
+  "dbUser": "dbuser",
+  "dbPass": "dbpass",
+  "dbPort": 3306,
+  "dbHost": "dbhost",
+  "dbName": "dbname"
+}

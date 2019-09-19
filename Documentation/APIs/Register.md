@@ -24,7 +24,7 @@ errors| Array| An Array with an object stating the errormessage (Errormessage ha
 {
     validRegistration: true,
     successMessage: {
-        id: 100
+        id: 100,
         message: "Registration completed. Please confirm your Account via Mail before you login."
     },
     errors: null
