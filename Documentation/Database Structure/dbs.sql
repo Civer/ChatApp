@@ -30,6 +30,7 @@ CREATE TABLE `user` (
   `userId` int(11) NOT NULL,
   `loginName` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
+  `salt` varchar(100) NOT NULL,
   `mail` varchar(150) NOT NULL,
   `lastLoginDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
