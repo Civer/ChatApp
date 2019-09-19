@@ -6,7 +6,15 @@ var logger = require("morgan");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
-var activechatRouter = require("./routes/activechat");
+var activeChatRouter = require("./routes/activeChat");
+var chatMessageRouter = require("./routes/chatMessage");
+var loginRouter = require("./routes/login");
+var logoutRouter = require("./routes/logout");
+var openChatRouter = require("./routes/openChat");
+var postMessageRouter = require("./routes/postMessage");
+var registerRouter = require("./routes/register");
+var resendTokenRouter = require("./routes/resendToken");
+var verificationRouter = require("./routes/verification");
 
 var app = express();
 
@@ -20,9 +28,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
 app.use("/users", usersRouter);
-app.use("/activechat", activechatRouter);
+app.use("/activechat", activeChatRouter);
+app.use("/chatmessage", chatMessageRouter);
+app.use("/login", loginRouter);
+app.use("/logout", logoutRouter);
+app.use("/openchat", openChatRouter);
+app.use("/postmessage", postMessageRouter);
+app.use("/register", registerRouter);
+app.use("/resendtoken", resendTokenRouter);
+app.use("/verification", verificationRouter);
+app.use("*", indexRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

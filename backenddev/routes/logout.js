@@ -3,26 +3,7 @@ var router = express.Router();
 
 //Defining Static Test Data
 var testData = {
-  validCall: true,
-  users: [
-    {
-      id: 100,
-      name: "Christian"
-    },
-    {
-      id: 200,
-      name: "Michel"
-    },
-    {
-      id: 300,
-      name: "Martin"
-    },
-    {
-      id: 400,
-      name: "Peter"
-    }
-  ],
-  errors: null
+  valivalidLogout: true
 };
 
 //Define router and params

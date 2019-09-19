@@ -4,33 +4,30 @@ var router = express.Router();
 //Defining Static Test Data
 var testData = {
   validCall: true,
-  chats: [
+  chatMessages: [
     {
-      chatId: 1,
-      userId1: 100,
-      userId2: 200,
-      userName1: "Name of First User of conversation",
-      userName2: "Name of Call User",
+      messageId: 1000,
+      userId: 100,
+      message: "Hallo.",
       lastTimeAndDate: new Date(),
       state: 1
     },
     {
-      chatId: 4,
-      userId1: 200,
-      userId2: 400,
-      userName1: "Name of Call User of conversation",
-      userName2: "Name of User with Id 400",
+      messageId: 1001,
+      userId: 200,
+      message: "Hey!",
       lastTimeAndDate: new Date(),
       state: 2
     }
   ],
-  errors: null
+  error: null
 };
 
 //Define router and params
-router.get("/:userid&:session", function(req, res, next) {
+router.get("/:userid&:session&:chatid", function(req, res, next) {
   console.log(req.params.userid);
   console.log(req.params.session);
+  console.log(req.params.chatid);
   res.json(testData);
 });
 
