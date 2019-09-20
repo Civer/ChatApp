@@ -9,8 +9,8 @@ var pool = mysql.createPool({
 });
 
 var getConnection = function(callback) {
-  pool.getConnection(function(err, connection) {
-    callback(err, connection);
+  pool.getConnection(function(err, connection, query) {
+    return callback(err, connection, query);
   });
 };
 
