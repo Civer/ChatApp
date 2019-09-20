@@ -2,15 +2,9 @@ var express = require("express");
 var router = express.Router();
 var getConnection = require("./helpers/db");
 var crypto = require("crypto");
+var usefulFunctions = require("./helpers/usefulFunctions");
 
-//Defining Static Test Data
-/*
-var testData = {
-  validLogin: true,
-  token: "ABCDEFGH123456",
-  errors: null
-};*/
-
+//Defining return object
 var returnObject = {
   validLogin: null,
   userId: null,
@@ -61,9 +55,9 @@ router.get("/:username&:pass", function(req, res, next) {
     var isVerified = res.isVerified;
 
     //Check if user is already verified
-    if (isVerified !== 1) {
+    if (isVerified === 1) {
       if (checkPassword(usedPassword, password, salt)) {
-        //checkActiveSession(userid); Delayed till core functionality is ready
+        //checkActiveSession(userid); //- Delayed till core functionality is ready
         var sessionToken = createSessionToken(userid);
         returnSessionToken(userid, sessionToken);
       } else {
@@ -97,7 +91,7 @@ router.get("/:username&:pass", function(req, res, next) {
       case "notVerified":
         returnObject.errors = {
           id: 300,
-          message: "Some error in the backend occured"
+          message: "UserNotVerified"
         };
         break;
       case "connection":
@@ -146,7 +140,7 @@ var checkPassword = function(usedPassword, password, salt) {
 var createSessionToken = function(userId) {
   var token = crypto
     .createHash("md5")
-    .update(generateToken())
+    .update(usefulFunctions.generateToken(16))
     .digest("hex");
   var executableQuery =
     "insert into usersession (sessionKey, userId, isActive) values ('" +
@@ -228,16 +222,6 @@ var terminateSessions = function(sessions) {
       conn.release();
     }
   });
-};
-
-var generateToken = function() {
-  var length = 16,
-    charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-    retVal = "";
-  for (var i = 0, n = charset.length; i < length; ++i) {
-    retVal += charset.charAt(Math.floor(Math.random() * n));
-  }
-  return retVal;
 };
 
 module.exports = router;

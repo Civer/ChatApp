@@ -52,18 +52,6 @@ router.get("/:userid&:session", function(req, res, next) {
           message: "noSessionFound"
         };
         break;
-      case "wrongPassword":
-        returnObject.errors = {
-          id: 200,
-          message: "Wrong Password"
-        };
-        break;
-      case "notVerified":
-        returnObject.errors = {
-          id: 300,
-          message: "Some error in the backend occured"
-        };
-        break;
       case "connection":
         returnObject.errors = {
           id: 800,
