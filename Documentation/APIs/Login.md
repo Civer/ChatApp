@@ -49,4 +49,5 @@ errors| Array| An Array with an object stating the errormessage (Errormessage ha
 Code |Meaning
 100 |Username is not known
 200 |Password is wrong
-300 |Some error in the backend occured
+300 |User is not verified
+900 |Some error in the backend occured

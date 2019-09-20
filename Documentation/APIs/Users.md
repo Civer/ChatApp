@@ -26,20 +26,20 @@ Example is called by user with Id 200
     validCall: true,
     users: [
         {
-            id: 100,
-            name: "Christian"
+            userid: 100,
+            loginname: "Christian"
         },
         {
-            id: 200,
-            name: "Michel"
+            userid: 200,
+            loginname: "Michel"
         },
         {
-            id: 300,
-            name: "Martin"
+            userid: 300,
+            loginname: "Martin"
         },
         {
-            id: 400,
-            name: "Peter"
+            userid: 400,
+            loginname: "Peter"
         }
     ],
     errors: null
