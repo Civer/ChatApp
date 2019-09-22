@@ -29,14 +29,18 @@ Example is called by user with Id 200
     chatMessages: [
         {
             messageId: 1000,
+            chatId: 1
             userId: 100,
+            userName: "Max"
             message: "Hallo.",
             lastTimeAndDate: 18.09.2019 - 09:54,
             state: 1
         },
         {
             messageId: 1001,
+            chatId: 1
             userId: 200,
+            userName: "Alex",
             message: "Hey!",
             lastTimeAndDate: 18.09.2019 - 09:55,
             state: 2
