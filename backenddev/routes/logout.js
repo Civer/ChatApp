@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var getConnection = require("./helpers/db");
+var errors = require("./helpers/writeError");
 
 //Defining Static Test Data
 var returnObject = {
@@ -17,17 +18,17 @@ router.get("/:userid&:session", function(req, res, next) {
   //Get Connection to database
   getConnection(function(err, conn) {
     if (err) {
-      var error = returnError("connection");
+      res.json(errors.returnError("connection"));
     } else {
       //Execute query
       console.log(query);
       conn.query(query, function(err, results) {
         if (err) {
-          var error = returnError("query");
+          res.json(errors.returnError("query"));
         } else {
           //Check if exactly one result is found
           if (results.length === 0) {
-            var error = returnError("noSessionFound");
+            res.json(errors.returnError("noSessionFound"));
           } else {
             var res = results[0];
             checkActiveSession(userid);
@@ -39,37 +40,6 @@ router.get("/:userid&:session", function(req, res, next) {
       conn.release();
     }
   });
-
-  //Handling Return errors
-
-  var returnError = function(string) {
-    returnObject.validLogout = false;
-
-    switch (string) {
-      case "noSessionFound":
-        returnObject.errors = {
-          id: 100,
-          message: "noSessionFound"
-        };
-        break;
-      case "connection":
-        returnObject.errors = {
-          id: 800,
-          message: "Some error in the backend occured"
-        };
-        break;
-      case "query":
-        returnObject.errors = {
-          id: 900,
-          message: "Some error in the backend occured"
-        };
-        break;
-      default:
-        break;
-    }
-
-    res.json(returnObject);
-  };
 
   //Returns token - Called after all password checks returned true
   var returnLogout = function() {
@@ -84,12 +54,12 @@ var checkActiveSession = function(userId) {
 
   var results = getConnection(function(err, conn) {
     if (err) {
-      console.log("getConnection: " + err);
+      res.json(errors.returnError("connection"));
     } else {
       //Execute query
       conn.query(query, function(err, results) {
         if (err) {
-          console.log("conn.query: " + err + " / " + query);
+          res.json(errors.returnError("query"));
         } else {
           if (results.length > 0) {
             terminateSessions(results);
@@ -105,7 +75,7 @@ var checkActiveSession = function(userId) {
 var terminateSessions = function(sessions) {
   getConnection(function(err, conn) {
     if (err) {
-      console.log("getConnection: " + err);
+      res.json(errors.returnError("connection"));
       return false;
     } else {
       for (var i = 0; sessions.length > i; i++) {
@@ -114,7 +84,7 @@ var terminateSessions = function(sessions) {
         //Execute query
         conn.query(query, function(err, results) {
           if (err) {
-            console.log("conn.query: " + err);
+            res.json(errors.returnError("query"));
             return false;
           } else {
             console.log("Logout performed!");

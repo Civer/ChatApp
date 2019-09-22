@@ -3,6 +3,7 @@ var router = express.Router();
 var getConnection = require("./helpers/db");
 var crypto = require("crypto");
 var usefulFunctions = require("./helpers/usefulFunctions");
+var errors = require("./helpers/writeError");
 
 //Defining return object
 var returnObject = {
@@ -25,16 +26,16 @@ router.get("/:username&:pass", function(req, res, next) {
   //Get Connection to database
   getConnection(function(err, conn) {
     if (err) {
-      var error = returnError("connection");
+      res.json(errors.returnError("connection"));
     } else {
       //Execute query
       conn.query(query, function(err, results) {
         if (err) {
-          var error = returnError("query");
+          res.json(errors.returnError("query"));
         } else {
           //Check if exactly one result is found
           if (results.length !== 1) {
-            var error = returnError("userNotFound");
+            res.json(errors.returnError("userNotFound"));
           } else {
             var res = results[0];
             attemptConnection(results);
@@ -61,56 +62,11 @@ router.get("/:username&:pass", function(req, res, next) {
         var sessionToken = createSessionToken(userid);
         returnSessionToken(userid, sessionToken);
       } else {
-        returnError("wrongPassword");
+        res.json(errors.returnError("wrongPassword"));
       }
     } else {
-      returnError("notVerified");
+      res.json(errors.returnError("notVerified"));
     }
-  };
-
-  //Handling Return errors
-
-  var returnError = function(string) {
-    returnObject.validLogin = false;
-    returnObject.token = null;
-    returnObject.userId = null;
-
-    switch (string) {
-      case "userNotFound":
-        returnObject.errors = {
-          id: 100,
-          message: "UserNotFound"
-        };
-        break;
-      case "wrongPassword":
-        returnObject.errors = {
-          id: 200,
-          message: "Wrong Password"
-        };
-        break;
-      case "notVerified":
-        returnObject.errors = {
-          id: 300,
-          message: "UserNotVerified"
-        };
-        break;
-      case "connection":
-        returnObject.errors = {
-          id: 800,
-          message: "Some error in the backend occured"
-        };
-        break;
-      case "query":
-        returnObject.errors = {
-          id: 900,
-          message: "Some error in the backend occured"
-        };
-        break;
-      default:
-        break;
-    }
-
-    res.json(returnObject);
   };
 
   //Returns token - Called after all password checks returned true

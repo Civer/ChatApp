@@ -5,6 +5,7 @@ var usefulFunctions = require("./helpers/usefulFunctions");
 var crypto = require("crypto");
 var CONFIG = require("./helpers/config.json");
 var nodemailer = require("nodemailer");
+var errors = require("./helpers/writeError");
 
 //Defining Static Test Data
 var returnObject = {
@@ -28,17 +29,17 @@ router.get("/:username&:token", function(req, res, next) {
   //Get Connection to database
   getConnection(function(err, conn) {
     if (err) {
-      var error = returnError("connection");
+      res.json(errors.returnError("connection"));
     } else {
       //Execute query
       conn.query(query, function(err, results) {
         if (err) {
           console.log("ErrorVerificationQuery: " + query + " / " + err);
-          var error = returnError("query");
+          res.json(errors.returnError("query"));
         } else {
           //Check if exactly one result is found
           if (results.length !== 1) {
-            var error = returnError("noMatch");
+            res.json(errors.returnError("noMatch"));
           } else {
             activateUser(username);
           }
@@ -58,20 +59,14 @@ router.get("/:username&:token", function(req, res, next) {
     //Get Connection to database
     getConnection(function(err, conn) {
       if (err) {
-        var error = returnError("connection");
+        res.json(errors.returnError("connection"));
       } else {
         //Execute query
         conn.query(query, function(err, result) {
           if (err) {
-            console.log("ErrorVerificationQuery: " + query + " / " + err);
-            var error = returnError("query");
+            res.json(errors.returnError("query"));
           } else {
-            //Check if exactly one result is found
-            if (err) {
-              console.log("errorVerificationUpdate: " + err);
-            } else {
-              deactivateVerificationToken(username);
-            }
+            deactivateVerificationToken(username);
           }
         });
         //Release connection.
@@ -89,56 +84,20 @@ router.get("/:username&:token", function(req, res, next) {
     //Get Connection to database
     getConnection(function(err, conn) {
       if (err) {
-        var error = returnError("connection");
+        res.json(errors.returnError("connection"));
       } else {
         //Execute query
         conn.query(query, function(err, result) {
           if (err) {
-            console.log("ErrorVerificationQuery: " + query + " / " + err);
-            var error = returnError("query");
+            res.json(errors.returnError("query"));
           } else {
-            //Check if exactly one result is found
-            if (err) {
-              console.log("errorVerificationUpdate: " + err);
-            } else {
-              res.render("verification", { title: "ChatApp" });
-            }
+            res.render("verification", { title: "ChatApp" });
           }
         });
         //Release connection.
         conn.release();
       }
     });
-  };
-
-  var returnError = function(string) {
-    returnObject.validVerification = false;
-    returnObject.successMessage = null;
-
-    switch (string) {
-      case "noMatch":
-        returnObject.errors = {
-          id: 100,
-          message: "noMatch"
-        };
-        break;
-      case "connection":
-        returnObject.errors = {
-          id: 800,
-          message: "Some error in the backend occured"
-        };
-        break;
-      case "query":
-        returnObject.errors = {
-          id: 900,
-          message: "Some error in the backend occured"
-        };
-        break;
-      default:
-        break;
-    }
-
-    res.json(returnObject);
   };
 
   //Returns token - Called after all password checks returned true

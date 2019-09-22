@@ -5,6 +5,7 @@ var usefulFunctions = require("./helpers/usefulFunctions");
 var crypto = require("crypto");
 var CONFIG = require("./helpers/config.json");
 var nodemailer = require("nodemailer");
+var errors = require("./helpers/writeError");
 
 //Defining Static Test Data
 var returnObject = {
@@ -29,16 +30,16 @@ router.get("/:username&:pass&:email", function(req, res, next) {
   //Get Connection to database
   getConnection(function(err, conn) {
     if (err) {
-      var error = returnError("connection");
+      res.json(errors.returnError("connection"));
     } else {
       //Execute query
       conn.query(query, function(err, results) {
         if (err) {
-          var error = returnError("query");
+          res.json(errors.returnError("query"));
         } else {
           //Check if exactly one result is found
           if (results.length !== 0) {
-            var error = returnError("uniqueConstraint");
+            res.json(errors.returnError("uniqueConstraint"));
           } else {
             createUser(username, usedPassword, usedEmail);
           }
@@ -77,14 +78,14 @@ router.get("/:username&:pass&:email", function(req, res, next) {
 
     getConnection(function(err, conn) {
       if (err) {
-        console.log("getConnection: " + err);
+        res.json(errors.returnError("connection"));
         return false;
       } else {
         //Execute query
         //console.log(query);
         conn.query(executableQuery, function(err, results) {
           if (err) {
-            console.log("conn.query: " + err + " / " + executableQuery);
+            res.json(errors.returnError("query"));
             return false;
           } else {
             createVerificationToken(username, mail);
@@ -112,14 +113,14 @@ router.get("/:username&:pass&:email", function(req, res, next) {
 
     getConnection(function(err, conn) {
       if (err) {
-        console.log("getConnection: " + err);
+        res.json(errors.returnError("connection"));
         return false;
       } else {
         //Execute query
         //console.log(query);
         conn.query(executableQuery, function(err, results) {
           if (err) {
-            console.log("conn.query: " + err + " / " + executableQuery);
+            res.json(errors.returnError("query"));
             return false;
           } else {
             sendVerificationMail(username, email, token);
@@ -156,42 +157,12 @@ router.get("/:username&:pass&:email", function(req, res, next) {
 
     transporter.sendMail(mailOptions, function(error, info) {
       if (error) {
-        console.log(error);
+        res.json(errors.returnError("mailNotSendProperly"));
       } else {
         returnSuccess();
         console.log("Email sent: " + info.response);
       }
     });
-  };
-
-  var returnError = function(string) {
-    returnObject.validRegistration = false;
-    returnObject.successMessage = null;
-
-    switch (string) {
-      case "uniqueConstraint":
-        returnObject.errors = {
-          id: 100,
-          message: "uniqueConstraint"
-        };
-        break;
-      case "connection":
-        returnObject.errors = {
-          id: 800,
-          message: "Some error in the backend occured"
-        };
-        break;
-      case "query":
-        returnObject.errors = {
-          id: 900,
-          message: "Some error in the backend occured"
-        };
-        break;
-      default:
-        break;
-    }
-
-    res.json(returnObject);
   };
 
   //Returns token - Called after all password checks returned true
