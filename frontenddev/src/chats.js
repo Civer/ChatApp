@@ -13,8 +13,9 @@ class Chats extends React.Component {
       openChats: [],
       apiURL: CONFIG.environment,
       apiPath: "activechat/",
-      userId: 15,
-      sessionToken: "dc8e1622de23f6c68d2d6ee71ca1e9b2"
+      userId: localStorage.userid,
+      sessionToken: localStorage.token,
+      noOpenChats: false
     };
     this.runAPICall = this.runAPICall.bind(this);
   }
@@ -36,7 +37,12 @@ class Chats extends React.Component {
       url: requestUrl,
       success: function(result) {
         openChats = result.chats;
-        this.state.openChats = openChats;
+        if (openChats.length > 0) {
+          this.state.openChats = openChats;
+        } else {
+          this.state.noOpenChats = true;
+        }
+
         this.setState({ openChats: this.state.openChats });
       }.bind(this)
     });
@@ -52,6 +58,7 @@ class Chats extends React.Component {
       chats = [];
       for (var i = 0; i < openChats.length; i++) {
         var chat = openChats[i];
+        var id = chat._id;
         var user1 = chat.userId1;
         var loginName;
 
@@ -62,10 +69,14 @@ class Chats extends React.Component {
         }
         //console.log(loginName);
 
-        chats.push(<Chat key={i} userName={loginName} />);
+        chats.push(<Chat key={i} userName={loginName} is={id} />);
       }
     } else {
-      chats = <div className="loader"></div>;
+      if (this.state.noOpenChats) {
+        chats = <div>Search for Users to begin!</div>;
+      } else {
+        chats = <div className="loader"></div>;
+      }
     }
 
     return (

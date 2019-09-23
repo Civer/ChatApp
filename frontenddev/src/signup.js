@@ -5,23 +5,24 @@ import $ from "jquery";
 import CONFIG from "./helpers/config";
 import crypto from "crypto";
 
-class Login extends React.Component {
+class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       apiURL: CONFIG.environment,
-      apiPath: "login/",
+      apiPath: "register/",
       userName: "",
       password: "",
+      email: "",
       error: null,
       formUsername: undefined,
-      formPassword: undefined
+      formPassword: undefined,
+      formEmail: undefined
     };
   }
 
-  signUp(e) {
-    e.preventDefault();
-    this.props.signUp();
+  back(message) {
+    this.props.back(message);
   }
 
   handleInputChange(e) {
@@ -50,12 +51,14 @@ class Login extends React.Component {
   register(e) {
     var formUsername = this.state.username;
     var formPassword = this.state.password;
+    var formEmail = this.state.email;
 
     var apiURL = this.state.apiURL;
     var apiPath = this.state.apiPath;
     var returns = [];
 
-    var requestUrl = apiURL + apiPath + formUsername + "&" + formPassword;
+    var requestUrl =
+      apiURL + apiPath + formUsername + "&" + formPassword + "&" + formEmail;
 
     var returns = $.post({
       url: requestUrl,
@@ -65,14 +68,8 @@ class Login extends React.Component {
         if (result.validCall === false) {
           if (result.errors) {
             switch (result.errors.id) {
-              case 100:
-                this.state.error = "Username or Password unknown or wrong!";
-                break;
-              case 120:
-                this.state.error = "Username or Password unknown or wrong!";
-                break;
-              case 130:
-                this.state.error = "User is not verified yet!";
+              case 700:
+                this.state.error = "Username or Mail already taken!";
                 break;
               default:
                 this.state.error = "Backend Error!";
@@ -82,14 +79,20 @@ class Login extends React.Component {
             this.state.error = "Backend Error!";
           }
         } else {
-          localStorage.userid = result.userId;
-          localStorage.token = result.token;
-          this.props.login();
         }
         console.log(result);
 
         this.state.returns = returns;
         this.setState({ returns: this.state.returns });
+
+        if (this.state.error !== null) {
+          this.back({ type: "error", message: this.state.error });
+        } else {
+          this.back({
+            type: "success",
+            message: "Success. Check your emails for verification information."
+          });
+        }
       }.bind(this)
     });
   }
@@ -98,21 +101,34 @@ class Login extends React.Component {
     return (
       <div className="loginContainer">
         <h2 className="h3 mb-3 font-weight-normal signinHeader">
-          Please sign in
+          Feel free to Sign Up
         </h2>
-        <label htmlFor="inputUsername" className="sr-only">
+        <label htmlFor="inputUser" className="sr-only">
           Login
         </label>
         <input
           name="username"
           type="username"
-          id="inputUsername"
+          id="inputUser"
           className="form-control"
           placeholder="Login"
           value={this.state.formUsername}
           onChange={this.handleInputChange.bind(this)}
           required
           autoFocus
+        ></input>
+        <label htmlFor="inputEmail" className="sr-only">
+          Email
+        </label>
+        <input
+          name="email"
+          type="email"
+          id="inputEmail"
+          className="form-control"
+          placeholder="Email"
+          value={this.state.formEmail}
+          onChange={this.handleInputChange.bind(this)}
+          required
         ></input>
         <label htmlFor="inputPassword" className="sr-only">
           Password
@@ -133,18 +149,18 @@ class Login extends React.Component {
           type="submit"
           onClick={this.register.bind(this)}
         >
-          Sign in
+          Register
         </button>
         <button
           className="btn btn-lg btn-primary btn-block"
           type="submit"
-          onClick={this.signUp.bind(this)}
+          onClick={this.back.bind(this)}
         >
-          Sign up
+          Back
         </button>
       </div>
     );
   }
 }
 
-export default Login;
+export default SignUp;

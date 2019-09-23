@@ -82,6 +82,7 @@ class Search extends React.Component {
       success: function(result) {
         returns = result.users;
 
+        console.log(result.validCall);
         if (result.validCall === false) {
           if (result.errors) {
             switch (result.errors.id) {

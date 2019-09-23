@@ -6,8 +6,13 @@ class Chat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userName: props.userName
+      userName: props.userName,
+      id: props.id
     };
+  }
+
+  openChat() {
+    localStorage.openChat = this.state.id;
   }
 
   render() {
@@ -17,7 +22,14 @@ class Chat extends React.Component {
         <table>
           <tbody>
             <tr>
-              <td>{this.state.userName}</td>
+              <td>
+                <button
+                  onClick={this.openChat.bind(this)}
+                  className="btn btn-sm btn-primary btn-block"
+                >
+                  {this.state.userName}
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>

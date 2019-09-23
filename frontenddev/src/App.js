@@ -3,15 +3,34 @@ import "./App.css";
 import NavBar from "./navbar";
 import Login from "./login";
 import ChatApp from "./chatApp";
+import SignUp from "./signup";
 import "bootstrap/dist/css/bootstrap.css";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.logout = this.logout.bind(this);
+    this.signUp = this.signUp.bind(this);
+    this.login = this.login.bind(this);
+    this.back = this.back.bind(this);
     this.state = {
-      isLoggedIn: true
+      isLoggedIn: false,
+      signUp: false,
+      errorMessage: null,
+      successMessage: null
     };
+  }
+
+  signUp() {
+    this.setState({
+      signUp: true
+    });
+  }
+
+  login() {
+    this.setState({
+      isLoggedIn: true
+    });
   }
 
   logout() {
@@ -20,13 +39,50 @@ class App extends React.Component {
     });
   }
 
+  back(message) {
+    if (message && message.type === "error") {
+      this.state.successMessage = null;
+      this.state.successMessage = message.message;
+    } else if (message && message.type === "success") {
+      this.state.errorMessage = null;
+      this.state.successMessage = message.message;
+    } else {
+      this.state.errorMessage = null;
+      this.state.successMessage = null;
+    }
+
+    this.setState({
+      signUp: false
+    });
+  }
+
   render() {
     var loadMainpart;
 
-    if (this.state.isLoggedIn) {
-      loadMainpart = <ChatApp />;
+    if (this.state.signUp) {
+      loadMainpart = <SignUp back={this.back} />;
     } else {
-      loadMainpart = <Login />;
+      if (this.state.isLoggedIn) {
+        loadMainpart = <ChatApp />;
+      } else {
+        if (this.state.successMessage !== null) {
+          loadMainpart = (
+            <div>
+              <p>{this.state.successMessage}</p>
+              <Login signUp={this.signUp} login={this.login} />
+            </div>
+          );
+        } else if (this.state.errorMessage !== null) {
+          loadMainpart = (
+            <div>
+              <p>{this.state.errorMessage}</p>
+              <Login signUp={this.signUp} login={this.login} />
+            </div>
+          );
+        } else {
+          loadMainpart = <Login signUp={this.signUp} login={this.login} />;
+        }
+      }
     }
 
     return (

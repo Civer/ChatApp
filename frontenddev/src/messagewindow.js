@@ -13,9 +13,9 @@ class MessageWindow extends React.Component {
       chatMessages: [],
       apiURL: CONFIG.environment,
       apiPath: "chatmessage/",
-      userId: 15,
-      sessionToken: "dc8e1622de23f6c68d2d6ee71ca1e9b2",
-      chatId: "5d87b2f48d8b7035fcf077eb"
+      userId: localStorage.userid,
+      sessionToken: localStorage.token,
+      chatId: localStorage.id
     };
     this.runAPICall = this.runAPICall.bind(this);
   }
@@ -47,6 +47,8 @@ class MessageWindow extends React.Component {
   update;
 
   render() {
+    console.log(localStorage.userid);
+    console.log(localStorage.token);
     var messages;
 
     if (this.state.chatMessages.length !== 0) {

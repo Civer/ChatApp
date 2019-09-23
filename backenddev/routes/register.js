@@ -15,7 +15,7 @@ var returnObject = {
 };
 
 //Define router and params
-router.get("/:username&:pass&:email", function(req, res, next) {
+router.post("/:username&:pass&:email", function(req, res, next) {
   var username = req.params.username;
   var usedPassword = req.params.pass;
   var usedEmail = req.params.email;
@@ -167,7 +167,7 @@ router.get("/:username&:pass&:email", function(req, res, next) {
 
   //Returns token - Called after all password checks returned true
   var returnSuccess = function(userId, token) {
-    returnObject.validRegistration = false;
+    returnObject.validRegistration = true;
     returnObject.successMessage = {
       id: 100,
       message:

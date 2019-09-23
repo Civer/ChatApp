@@ -14,7 +14,7 @@ var returnObject = {
 };
 
 //Define router and params
-router.get("/:username&:pass", function(req, res, next) {
+router.post("/:username&:pass", function(req, res, next) {
   var username = req.params.username;
   var usedPassword = req.params.pass;
 
@@ -49,11 +49,11 @@ router.get("/:username&:pass", function(req, res, next) {
 
   var attemptConnection = function(results) {
     //Get values from database
-    var res = results[0];
-    var userid = res.userid;
-    var password = res.password;
-    var salt = res.salt;
-    var isVerified = res.isVerified;
+    var result = results[0];
+    var userid = result.userid;
+    var password = result.password;
+    var salt = result.salt;
+    var isVerified = result.isVerified;
 
     //Check if user is already verified
     if (isVerified === 1) {
