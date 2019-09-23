@@ -1,5 +1,66 @@
 .App {
   text-align: center;
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.navbarContainer {
+  width: 100%;
+  background-color: #fff7e1;
+  height: 60px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.navbar {
+  margin: 0px;
+}
+
+.loginContainer {
+  text-align: center;
+  width: 300px;
+  margin: 0 auto;
+}
+
+.chatContainer {
+  margin: 10px;
+  margin-left: 0px;
+  width: 280px;
+  float: left;
+  background-color: lightblue;
+}
+
+.messageContainer {
+  margin: 10px;
+  margin-right: 0px;
+  width: 900px;
+  float: right;
+  background-color: lightsalmon;
+}
+
+.logoutButton {
+  float: right;
+  width: 150px;
+  height: 30px;
+}
+
+.navbarTable {
+  width: 100%;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+}
+
+.tableLeftAlign {
+  text-align: left;
+}
+
+.tableRightAlign {
+  text-align: right;
+}
+
+.signinHeader {
+  padding-top: 100px;
 }
 
 .App-logo {
@@ -23,11 +84,29 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
+.loader {
+  margin: 0 auto;
+  border: 8px solid #f3f3f3; /* Light grey */
+  border-top: 8px solid lightslategray; /* Blue */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+}
+
+.postMessageInput {
+  width: 90%;
+}
+
+.postMessageButton {
+  width: 10%;
+}
+
+@keyframes spin {
+  0% {
     transform: rotate(0deg);
   }
-  to {
+  100% {
     transform: rotate(360deg);
   }
 }

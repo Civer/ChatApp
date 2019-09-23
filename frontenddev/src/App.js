@@ -1,7 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import NavBar from "./navbar";
+import Login from "./login";
+import ChatApp from "./chatApp";
+import "bootstrap/dist/css/bootstrap.css";
 
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoggedIn: true
+    };
+  }
+
+  render() {
+    var loadMainpart;
+
+    if (this.state.isLoggedIn) {
+      loadMainpart = <ChatApp />;
+    } else {
+      loadMainpart = <Login />;
+    }
+
+    return (
+      <div className="App Container">
+        <NavBar loginState={this.state.isLoggedIn} />
+        {loadMainpart}
+      </div>
+    );
+  }
+}
+
+/*
 function App() {
   return (
     <div className="App">
@@ -22,5 +52,6 @@ function App() {
     </div>
   );
 }
+*/
 
 export default App;
