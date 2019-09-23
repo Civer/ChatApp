@@ -8,6 +8,11 @@ class NavBar extends React.Component {
     this.state = { isLoggedIn: props.loginState };
   }
 
+  logout() {
+    this.props.logout();
+    this.setState({ isLoggedIn: false });
+  }
+
   render() {
     var logoutButton;
 
@@ -16,7 +21,11 @@ class NavBar extends React.Component {
     } else {
       logoutButton = (
         <span className="logoutButton">
-          <button className="btn btn-sm btn-primary btn-block" type="submit">
+          <button
+            className="btn btn-sm btn-primary btn-block"
+            type="submit"
+            onClick={this.logout.bind(this)}
+          >
             Logout
           </button>
         </span>

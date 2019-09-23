@@ -1,12 +1,19 @@
 import React from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
+import $ from "jquery";
+import CONFIG from "./helpers/config";
 
 class Post extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: true
+      users: [],
+      apiURL: CONFIG.environment,
+      apiPath: "postmessage/",
+      userId: 15,
+      sessionToken: "dc8e1622de23f6c68d2d6ee71ca1e9b2",
+      chatId: "5d87b2f48d8b7035fcf077eb"
     };
   }
 

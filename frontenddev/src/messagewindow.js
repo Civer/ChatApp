@@ -34,13 +34,9 @@ class MessageWindow extends React.Component {
 
     var requestUrl =
       apiURL + apiPath + userId + "&" + sessionToken + "&" + chatId;
-    console.log(requestUrl);
     var chatMessages = $.get({
       url: requestUrl,
       success: function(result) {
-        console.log(result);
-        console.log(result.chatMessages);
-        console.log(result.chatMessages[0].userId);
         chatMessages = result.chatMessages;
         this.state.chatMessages = chatMessages;
         this.setState({ chatMessages: this.state.chatMessages });

@@ -11,7 +11,7 @@ class Chat extends React.Component {
   }
 
   render() {
-    console.log(this.state.userName);
+    //console.log(this.state.userName);
     return (
       <div className="message">
         <table>

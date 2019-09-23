@@ -8,9 +8,16 @@ import "bootstrap/dist/css/bootstrap.css";
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.logout = this.logout.bind(this);
     this.state = {
       isLoggedIn: true
     };
+  }
+
+  logout() {
+    this.setState({
+      isLoggedIn: false
+    });
   }
 
   render() {
@@ -24,7 +31,7 @@ class App extends React.Component {
 
     return (
       <div className="App Container">
-        <NavBar loginState={this.state.isLoggedIn} />
+        <NavBar loginState={this.state.isLoggedIn} logout={this.logout} />
         {loadMainpart}
       </div>
     );
