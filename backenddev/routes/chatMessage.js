@@ -81,7 +81,20 @@ router.get("/:userid&:session&:chatid", function(req, res, next) {
         .toArray(function(err, result) {
           if (err) throw err;
           console.log(result.length);
-          returnChatMessages(result);
+          if (result.length === 0) {
+            returnChatMessages([
+              {
+                chatId: null,
+                lastTimeAndDate: new Date(),
+                message: "This chat looks empty. Try to send a message.",
+                state: 1,
+                userId: 1,
+                userName: "Chat Bot"
+              }
+            ]);
+          } else {
+            returnChatMessages(result);
+          }
           db.close();
         });
     });

@@ -18,7 +18,7 @@ var loginUser1 = null;
 var message = null;
 
 //Define router and params
-router.get("/:userid&:session&:chatid&:message", function(req, res, next) {
+router.post("/:userid&:session&:chatid&:message", function(req, res, next) {
   userid = req.params.userid;
   session = req.params.session;
   chatid = req.params.chatid;

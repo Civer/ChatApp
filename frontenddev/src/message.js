@@ -12,17 +12,37 @@ class Message extends React.Component {
     };
   }
 
+  rewriteDate() {
+    var date = this.props.date;
+    var newDate = new Date(date);
+    var hours =
+      newDate.getHours() < 10 ? "0" + newDate.getHours() : newDate.getHours();
+    var minutes =
+      newDate.getMinutes() < 10
+        ? "0" + newDate.getMinutes()
+        : newDate.getMinutes();
+    return (
+      newDate.getDate() +
+      "." +
+      (newDate.getMonth() + 1) +
+      " - " +
+      hours +
+      ":" +
+      minutes
+    );
+  }
+
   render() {
     return (
       <div className="message">
-        <table>
+        <table width="100%">
           <tbody>
             <tr>
-              <td>{this.state.loginName}</td>
+              <td className="messageUsername">{this.state.loginName}</td>
             </tr>
             <tr>
-              <td>{this.state.message}</td>
-              <td>{this.state.date}</td>
+              <td className="messageText">{this.state.message}</td>
+              <td className="messageDate">{this.rewriteDate()}</td>
             </tr>
           </tbody>
         </table>

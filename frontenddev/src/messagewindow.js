@@ -51,9 +51,10 @@ class MessageWindow extends React.Component {
 
     if (this.state.chatMessages.length !== 0) {
       var chatMessages = this.state.chatMessages;
-      console.log(chatMessages[0].userName);
+      console.log(chatMessages);
       var userName = chatMessages[0].userName;
       messages = [];
+
       for (var i = 0; i < chatMessages.length; i++) {
         messages.push(
           <Message

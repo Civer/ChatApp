@@ -18,6 +18,7 @@ class MessageContainer extends React.Component {
         <div>
           <MessageWindow />
         </div>
+        <p></p>
         <div>
           <Post />
         </div>

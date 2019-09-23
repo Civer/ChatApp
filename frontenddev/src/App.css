@@ -23,6 +23,7 @@
 }
 
 .chatContainer {
+  padding: 10px;
   margin: 10px;
   margin-left: 0px;
   width: 280px;
@@ -31,6 +32,7 @@
 }
 
 .messageContainer {
+  padding: 10px;
   margin: 10px;
   margin-right: 0px;
   width: 900px;
@@ -100,6 +102,19 @@
 
 .postMessageButton {
   width: 10%;
+}
+
+.messageDate {
+  text-align: right;
+}
+
+.messageText {
+  text-align: left;
+}
+
+.messageUsername {
+  font-weight: bold;
+  text-align: left;
 }
 
 @keyframes spin {
