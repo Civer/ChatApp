@@ -47,7 +47,9 @@ class NavBar extends React.Component {
           <table className="navbarTable">
             <tbody>
               <tr>
-                <td className="tableLeftAlign">My ChatApp</td>
+                <td className="tableLeftAlign">
+                  <strong>ChatApp</strong>
+                </td>
                 <td className="tableRightAlign">{logoutButton}</td>
               </tr>
             </tbody>

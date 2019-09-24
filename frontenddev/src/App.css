@@ -34,8 +34,10 @@
   margin-left: 0px;
   width: 280px;
   float: left;
-  background-color: lightblue;
+  background-color: #ffecb6;
   min-height: 600px;
+  border: 1;
+  border-radius: 5px;
 }
 
 .messageContainer {
@@ -45,8 +47,10 @@
   margin-right: 0px;
   width: 900px;
   float: right;
-  background-color: lightsalmon;
+  background-color: #ffecb6;
   min-height: 600px;
+  border: 1;
+  border-radius: 5px;
 }
 
 .logoutButton {
