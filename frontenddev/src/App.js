@@ -62,9 +62,21 @@ class App extends React.Component {
   render() {
     var loadMainpart;
 
+    if (localStorage.userId == "undefined") {
+      localStorage.userid = null;
+      localStorage.token = null;
+      localStorage.chatid = null;
+      this.setState({
+        isLoggedIn: false,
+        signUp: false
+      });
+    }
+
     if (
       localStorage.userid != "null" &&
+      localStorage.userId != "undefined" &&
       localStorage.token != "null" &&
+      localStorage.token == "undefined" &&
       this.state.isLoggedIn == false
     ) {
       this.setState({ isLoggedIn: true });
@@ -72,9 +84,11 @@ class App extends React.Component {
 
     if (this.state.signUp) {
       loadMainpart = <SignUp back={this.back} />;
+      console.log("TEST");
     } else {
       if (this.state.isLoggedIn) {
         loadMainpart = <ChatApp />;
+        console.log("TEST2");
       } else {
         if (this.state.successMessage !== null) {
           loadMainpart = (

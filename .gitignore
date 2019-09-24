@@ -1,3 +1,4 @@
 # ignore config file
 
 /backenddev/routes/helpers/config.json
+/frontenddev/build/*
