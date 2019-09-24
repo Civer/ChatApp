@@ -90,7 +90,6 @@ class Search extends React.Component {
       success: function(result) {
         returns = result.users;
 
-        console.log(result.validCall);
         if (result.validCall === false) {
           if (result.errors) {
             switch (result.errors.id) {
@@ -114,7 +113,6 @@ class Search extends React.Component {
 
           //Update Chatlist!
         }
-        console.log(result);
 
         this.state.returns = returns;
         this.setState({ returns: this.state.returns });

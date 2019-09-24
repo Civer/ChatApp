@@ -32,9 +32,7 @@ class MessageContainer extends React.Component {
   }
 
   render() {
-    console.log(localStorage.chatid);
     if (localStorage.chatid != 0) {
-      console.log("If");
       var messageWindowComponent = (
         <div>
           <MessageWindow
@@ -49,7 +47,6 @@ class MessageContainer extends React.Component {
         </div>
       );
     } else {
-      console.log("Else");
       var messageWindowComponent = (
         <div>
           <p>

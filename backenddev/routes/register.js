@@ -134,7 +134,7 @@ router.post("/:username&:pass&:email", function(req, res, next) {
 
   var sendVerificationMail = function(username, email, token) {
     var tokenLink =
-      CONFIG.devEnvironment + "/verification/" + username + "&" + token;
+      CONFIG.environment + "/verification/" + username + "&" + token;
 
     var transporter = nodemailer.createTransport({
       host: CONFIG.mailHost,

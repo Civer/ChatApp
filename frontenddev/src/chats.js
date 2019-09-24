@@ -29,7 +29,6 @@ class Chats extends React.Component {
       this.setState({
         reloadChatFlag: nextProps.reloadChatFlag
       });
-      console.log("YEAH");
       this.runAPICall();
     }
   }
@@ -54,7 +53,6 @@ class Chats extends React.Component {
     var openChats = [];
 
     var requestUrl = apiURL + apiPath + userId + "&" + sessionToken;
-    //console.log(requestUrl);
     var openChats = $.get({
       url: requestUrl,
       success: function(result) {
@@ -74,7 +72,6 @@ class Chats extends React.Component {
 
   render() {
     var chats;
-    console.log(this.state.openChats.length);
     if (this.state.openChats.length !== 0) {
       var openChats = this.state.openChats;
 

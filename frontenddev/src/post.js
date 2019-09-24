@@ -74,7 +74,6 @@ class Post extends React.Component {
           }
         } else {
         }
-        console.log(result);
 
         this.state.returns = returns;
         this.setState({ returns: this.state.returns, sendingMessage: false });

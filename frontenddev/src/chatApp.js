@@ -18,7 +18,6 @@ class ChatApp extends React.Component {
     this.setState({
       messageWindowNeedsReload: !this.state.messageWindowNeedsReload
     });
-    console.log("Executed state Change");
   }
 
   render() {

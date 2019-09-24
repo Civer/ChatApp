@@ -30,7 +30,6 @@ class MessageWindow extends React.Component {
       this.setState({
         messageWindowNeedsReload: nextProps.messageWindowNeedsReload
       });
-      console.log("Test");
       this.runAPICall();
     }
     if (nextProps.messageWindowNewPost !== this.state.messageWindowNewPost) {
@@ -55,7 +54,6 @@ class MessageWindow extends React.Component {
 
     var requestUrl =
       apiURL + apiPath + userId + "&" + sessionToken + "&" + chatId;
-    console.log(requestUrl);
     var chatMessages = $.get({
       url: requestUrl,
       success: function(result) {
@@ -76,8 +74,6 @@ class MessageWindow extends React.Component {
       messages = [];
 
       for (var i = 0; i < chatMessages.length; i++) {
-        console.log(chatMessages[i].message);
-        console.log(chatMessages[i].userName);
         messages.push(
           <Message
             key={i}

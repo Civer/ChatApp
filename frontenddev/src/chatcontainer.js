@@ -20,7 +20,6 @@ class ChatContainer extends React.Component {
   }
 
   reloadChats() {
-    console.log(this.state.reloadChatFlag);
     this.setState({ reloadChatFlag: !this.state.reloadChatFlag });
   }
 

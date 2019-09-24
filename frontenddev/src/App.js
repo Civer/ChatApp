@@ -62,7 +62,7 @@ class App extends React.Component {
   render() {
     var loadMainpart;
 
-    if (localStorage.userId == "undefined") {
+    if (localStorage.userid == undefined) {
       localStorage.userid = null;
       localStorage.token = null;
       localStorage.chatid = null;
@@ -71,12 +71,11 @@ class App extends React.Component {
         signUp: false
       });
     }
-
     if (
       localStorage.userid != "null" &&
-      localStorage.userId != "undefined" &&
+      localStorage.userid != undefined &&
       localStorage.token != "null" &&
-      localStorage.token == "undefined" &&
+      localStorage.userid != undefined &&
       this.state.isLoggedIn == false
     ) {
       this.setState({ isLoggedIn: true });
@@ -84,11 +83,9 @@ class App extends React.Component {
 
     if (this.state.signUp) {
       loadMainpart = <SignUp back={this.back} />;
-      console.log("TEST");
     } else {
       if (this.state.isLoggedIn) {
         loadMainpart = <ChatApp />;
-        console.log("TEST2");
       } else {
         if (this.state.successMessage !== null) {
           loadMainpart = (

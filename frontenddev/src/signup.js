@@ -30,11 +30,9 @@ class SignUp extends React.Component {
     var value = eventTarget.value;
     var name = eventTarget.name;
 
-    console.log(name);
     if (name === "password") {
       value = this.hashPassword(value).toUpperCase();
     }
-    console.log(value);
     this.setState({
       [name]: value
     });
@@ -80,7 +78,6 @@ class SignUp extends React.Component {
           }
         } else {
         }
-        console.log(result);
 
         this.state.returns = returns;
         this.setState({ returns: this.state.returns });

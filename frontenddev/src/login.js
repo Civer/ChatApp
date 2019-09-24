@@ -104,7 +104,6 @@ class Login extends React.Component {
             localStorage.chatid = 0;
             this.props.login();
           }
-          console.log(result);
 
           this.state.returns = returns;
           this.setState({ returns: this.state.returns });
