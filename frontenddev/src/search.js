@@ -24,6 +24,12 @@ class Search extends React.Component {
     };
   }
 
+  listenForEnter(e) {
+    if (e.charCode === 13) {
+      this.handleSearch(e);
+    }
+  }
+
   updateSearchInformation(e) {
     this.setState({ searchParameter: e.target.value });
   }
@@ -41,9 +47,10 @@ class Search extends React.Component {
       if (data.userid === this.state.userId) {
         this.setState({ error: "You can't choose yourself" });
       } else {
-        this.props.reloadChats();
         this.openChat(data.userid);
       }
+    } else {
+      this.setState({ error: "User not found" });
     }
   }
 
@@ -111,6 +118,7 @@ class Search extends React.Component {
 
         this.state.returns = returns;
         this.setState({ returns: this.state.returns });
+        this.props.reloadChats();
       }.bind(this)
     });
   }
@@ -127,6 +135,7 @@ class Search extends React.Component {
                     type="text"
                     className="form-control"
                     ref={c => (this.title = c)}
+                    onKeyPress={this.listenForEnter.bind(this)}
                     onChange={this.updateSearchInformation.bind(this)}
                     name="title"
                   />

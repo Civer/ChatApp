@@ -29,6 +29,8 @@ class Chats extends React.Component {
       this.setState({
         reloadChatFlag: nextProps.reloadChatFlag
       });
+      console.log("YEAH");
+      this.runAPICall();
     }
   }
 

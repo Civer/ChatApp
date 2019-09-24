@@ -12,6 +12,25 @@ class Message extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    // You don't have to do this check first, but it can help prevent an unneeded render
+    if (nextProps.loginName !== this.state.loginName) {
+      this.setState({
+        loginName: nextProps.loginName
+      });
+    }
+    if (nextProps.message !== this.state.message) {
+      this.setState({
+        message: nextProps.message
+      });
+    }
+    if (nextProps.date !== this.state.date) {
+      this.setState({
+        date: nextProps.date
+      });
+    }
+  }
+
   rewriteDate() {
     var date = this.props.date;
     var newDate = new Date(date);

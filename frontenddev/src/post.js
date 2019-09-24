@@ -15,8 +15,15 @@ class Post extends React.Component {
       sessionToken: localStorage.token,
       chatId: localStorage.chatid,
       message: "",
-      error: ""
+      error: "",
+      sendingMessage: false
     };
+  }
+
+  listenForEnter(e) {
+    if (e.charCode === 13) {
+      this.sendPost();
+    }
   }
 
   updateMessageInformation(e) {
@@ -24,6 +31,8 @@ class Post extends React.Component {
   }
 
   sendPost() {
+    this.setState({ sendingMessage: true });
+
     var apiURL = this.state.apiURL;
     var apiPath = this.state.apiPath;
     var userId = this.state.userId;
@@ -68,12 +77,29 @@ class Post extends React.Component {
         console.log(result);
 
         this.state.returns = returns;
-        this.setState({ returns: this.state.returns });
+        this.setState({ returns: this.state.returns, sendingMessage: false });
+        this.props.reloadChat();
       }.bind(this)
     });
   }
 
   render() {
+    if (this.state.sendingMessage === true) {
+      var button = <div className="loaderSmall"></div>;
+    } else {
+      var button = (
+        <div>
+          {" "}
+          <button
+            onClick={this.sendPost.bind(this)}
+            className="btn btn-sm btn-primary btn-block"
+          >
+            Post
+          </button>
+        </div>
+      );
+    }
+
     return (
       <div className="post">
         <div>
@@ -89,19 +115,13 @@ class Post extends React.Component {
                     id="inputEmail"
                     className="form-control"
                     placeholder="Message"
+                    onKeyPress={this.listenForEnter.bind(this)}
                     onChange={this.updateMessageInformation.bind(this)}
                     required
                     autoFocus
                   ></input>
                 </td>
-                <td className="postMessageButton">
-                  <button
-                    onClick={this.sendPost.bind(this)}
-                    className="btn btn-sm btn-primary btn-block"
-                  >
-                    Post
-                  </button>
-                </td>
+                <td className="postMessageButton">{button}</td>
               </tr>
             </tbody>
           </table>

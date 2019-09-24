@@ -10,13 +10,14 @@ class MessageWindow extends React.Component {
     super(props);
     this.state = {
       isLoggedIn: true,
-      messageWindowNeedsReload: false,
+      messageWindowNeedsReload: this.props.messageWindowNeedsReload,
       chatMessages: [],
       apiURL: CONFIG.environment,
       apiPath: "chatmessage/",
       userId: localStorage.userid,
       sessionToken: localStorage.token,
-      chatId: localStorage.chatid
+      chatId: localStorage.chatid,
+      messageWindowNewPost: this.props.messageWindowNewPost
     };
     this.runAPICall = this.runAPICall.bind(this);
   }
@@ -27,8 +28,14 @@ class MessageWindow extends React.Component {
       nextProps.messageWindowNeedsReload !== this.state.messageWindowNeedsReload
     ) {
       this.setState({
-        messageWindowNeedsReload: nextProps.messageWindowNeedsReload,
-        chatId: localStorage.chatid
+        messageWindowNeedsReload: nextProps.messageWindowNeedsReload
+      });
+      console.log("Test");
+      this.runAPICall();
+    }
+    if (nextProps.messageWindowNewPost !== this.state.messageWindowNewPost) {
+      this.setState({
+        messageWindowNewPost: nextProps.messageWindowNewPost
       });
       this.runAPICall();
     }
@@ -66,11 +73,11 @@ class MessageWindow extends React.Component {
 
     if (this.state.chatMessages.length !== 0) {
       var chatMessages = this.state.chatMessages;
-      console.log(chatMessages);
-      var userName = chatMessages[0].userName;
       messages = [];
 
       for (var i = 0; i < chatMessages.length; i++) {
+        console.log(chatMessages[i].message);
+        console.log(chatMessages[i].userName);
         messages.push(
           <Message
             key={i}

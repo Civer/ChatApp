@@ -84,7 +84,6 @@ router.get("/:userid&:session&:chatid", function(req, res, next) {
           if (result.length === 0) {
             returnChatMessages([
               {
-                chatId: null,
                 lastTimeAndDate: new Date(),
                 message: "This chat looks empty. Try to send a message.",
                 state: 1,

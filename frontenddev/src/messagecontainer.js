@@ -7,10 +7,17 @@ import Post from "./post";
 class MessageContainer extends React.Component {
   constructor(props) {
     super(props);
+    this.reloadChat = this.reloadChat.bind(this);
     this.state = {
       isLoggedIn: true,
       messageWindowNeedsReload: this.props.messageWindowNeedsReload
     };
+  }
+
+  reloadChat() {
+    this.setState({
+      messageWindowNeedsReload: !this.state.messageWindowNeedsReload
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -38,7 +45,7 @@ class MessageContainer extends React.Component {
       var postWindowComponent = (
         <div className="divPost">
           {" "}
-          <Post />
+          <Post reloadChat={this.reloadChat.bind(this)} />
         </div>
       );
     } else {
