@@ -11,6 +11,7 @@ class NavBar extends React.Component {
   componentWillReceiveProps(nextProps) {
     // You don't have to do this check first, but it can help prevent an unneeded render
     if (nextProps.isLoggedIn !== this.state.isLoggedIn) {
+      console.log(this.state.isLoggedIn);
       this.setState({
         isLoggedIn: nextProps.isLoggedIn
       });
@@ -25,7 +26,7 @@ class NavBar extends React.Component {
   render() {
     var logoutButton;
 
-    if (this.state.isLoggedIn === false) {
+    if (localStorage.userid == undefined || localStorage.userid == "null") {
       logoutButton = <p></p>;
     } else {
       logoutButton = (
