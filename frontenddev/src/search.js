@@ -12,8 +12,8 @@ class Search extends React.Component {
       apiURL: CONFIG.environment,
       apiPathUserSearch: "users/",
       apiPathOpenChat: "openchat/",
-      userId: 15,
-      sessionToken: "dc8e1622de23f6c68d2d6ee71ca1e9b2",
+      userId: localStorage.userid,
+      sessionToken: localStorage.token,
       chatId: "5d87b2f48d8b7035fcf077eb",
       query: "",
       value: "",
@@ -41,6 +41,7 @@ class Search extends React.Component {
       if (data.userid === this.state.userId) {
         this.setState({ error: "You can't choose yourself" });
       } else {
+        this.props.reloadChats();
         this.openChat(data.userid);
       }
     }
@@ -87,21 +88,24 @@ class Search extends React.Component {
           if (result.errors) {
             switch (result.errors.id) {
               case 600:
-                this.state.error = "Chat already opened!";
+                this.setState({ error: "Chat already opened!" });
                 break;
               case 220:
-                this.state.error = "Your Partner is not verified!";
+                this.setState({ error: "Your Partner is not verified!" });
                 break;
               default:
-                this.state.error = "Backend Error!";
+                this.setState({ error: "Backend Error!" });
                 break;
             }
           } else {
-            this.state.error = "Backend Error!";
+            this.setState({ error: "Backend Error!" });
           }
         } else {
-          this.state.success =
+          var successMessage =
             "You can now chat with " + this.state.searchParameter;
+          this.setState({ success: successMessage });
+
+          //Update Chatlist!
         }
         console.log(result);
 
@@ -115,20 +119,32 @@ class Search extends React.Component {
     return (
       <div className="search">
         <div>
-          <form className="form-inline">
-            <div className="form-group mb-2">
-              <input
-                type="text"
-                className="form-control"
-                ref={c => (this.title = c)}
-                onChange={this.updateSearchInformation.bind(this)}
-                name="title"
-              />
-              <button onClick={this.handleSearch.bind(this)}>+</button>
-            </div>
-          </form>
+          <table width="100%">
+            <tbody>
+              <tr>
+                <td className="postMessageInput">
+                  <input
+                    type="text"
+                    className="form-control"
+                    ref={c => (this.title = c)}
+                    onChange={this.updateSearchInformation.bind(this)}
+                    name="title"
+                  />
+                </td>
+                <td className="postMessageButton">
+                  <button
+                    onClick={this.handleSearch.bind(this)}
+                    className="btn btn-sm btn-primary btn-block"
+                  >
+                    +
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <div>
+          <p></p>
           <span className="error">{this.state.error}</span>
           <span className="success">{this.state.success}</span>
         </div>

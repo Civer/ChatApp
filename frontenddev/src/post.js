@@ -11,9 +11,9 @@ class Post extends React.Component {
       users: [],
       apiURL: CONFIG.environment,
       apiPath: "postmessage/",
-      userId: 15,
-      sessionToken: "dc8e1622de23f6c68d2d6ee71ca1e9b2",
-      chatId: "5d87b2f48d8b7035fcf077eb",
+      userId: localStorage.userid,
+      sessionToken: localStorage.token,
+      chatId: localStorage.chatid,
       message: "",
       error: ""
     };

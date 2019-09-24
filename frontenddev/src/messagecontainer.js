@@ -8,20 +8,58 @@ class MessageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: true
+      isLoggedIn: true,
+      messageWindowNeedsReload: this.props.messageWindowNeedsReload
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    // You don't have to do this check first, but it can help prevent an unneeded render
+    if (
+      nextProps.messageWindowNeedsReload !== this.state.messageWindowNeedsReload
+    ) {
+      this.setState({
+        messageWindowNeedsReload: nextProps.messageWindowNeedsReload
+      });
+    }
+  }
+
   render() {
-    return (
-      <div className="messageContainer">
+    console.log(localStorage.chatid);
+    if (localStorage.chatid != 0) {
+      console.log("If");
+      var messageWindowComponent = (
         <div>
-          <MessageWindow />
+          <MessageWindow
+            messageWindowNeedsReload={this.state.messageWindowNeedsReload}
+          />
         </div>
-        <p></p>
-        <div>
+      );
+      var postWindowComponent = (
+        <div className="divPost">
+          {" "}
           <Post />
         </div>
+      );
+    } else {
+      console.log("Else");
+      var messageWindowComponent = (
+        <div>
+          <p>
+            <strong>Chat Bot</strong>
+          </p>
+          <p>
+            It seems that you haven't selected a chat yet. Select a chat to
+            start.
+          </p>
+        </div>
+      );
+      var postWindowComponent = null;
+    }
+
+    return (
+      <div className="messageContainer">
+        {messageWindowComponent} <p></p> {postWindowComponent}
       </div>
     );
   }

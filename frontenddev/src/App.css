@@ -22,6 +22,12 @@
   margin: 0 auto;
 }
 
+.divPost {
+  width: 95%;
+  position: absolute;
+  bottom: 5px;
+}
+
 .chatContainer {
   padding: 10px;
   margin: 10px;
@@ -29,15 +35,18 @@
   width: 280px;
   float: left;
   background-color: lightblue;
+  min-height: 600px;
 }
 
 .messageContainer {
+  position: relative;
   padding: 10px;
   margin: 10px;
   margin-right: 0px;
   width: 900px;
   float: right;
   background-color: lightsalmon;
+  min-height: 600px;
 }
 
 .logoutButton {
@@ -115,6 +124,14 @@
 .messageUsername {
   font-weight: bold;
   text-align: left;
+}
+
+.error {
+  color: red;
+}
+
+.success {
+  color: green;
 }
 
 @keyframes spin {

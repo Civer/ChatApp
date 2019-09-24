@@ -34,6 +34,9 @@ class App extends React.Component {
   }
 
   logout() {
+    localStorage.userid = null;
+    localStorage.token = null;
+    localStorage.chatid = null;
     this.setState({
       isLoggedIn: false
     });
@@ -58,6 +61,14 @@ class App extends React.Component {
 
   render() {
     var loadMainpart;
+
+    if (
+      localStorage.userid != "null" &&
+      localStorage.token != "null" &&
+      this.state.isLoggedIn == false
+    ) {
+      this.setState({ isLoggedIn: true });
+    }
 
     if (this.state.signUp) {
       loadMainpart = <SignUp back={this.back} />;

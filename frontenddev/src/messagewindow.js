@@ -10,14 +10,28 @@ class MessageWindow extends React.Component {
     super(props);
     this.state = {
       isLoggedIn: true,
+      messageWindowNeedsReload: false,
       chatMessages: [],
       apiURL: CONFIG.environment,
       apiPath: "chatmessage/",
       userId: localStorage.userid,
       sessionToken: localStorage.token,
-      chatId: localStorage.id
+      chatId: localStorage.chatid
     };
     this.runAPICall = this.runAPICall.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // You don't have to do this check first, but it can help prevent an unneeded render
+    if (
+      nextProps.messageWindowNeedsReload !== this.state.messageWindowNeedsReload
+    ) {
+      this.setState({
+        messageWindowNeedsReload: nextProps.messageWindowNeedsReload,
+        chatId: localStorage.chatid
+      });
+      this.runAPICall();
+    }
   }
 
   componentDidMount() {
@@ -29,11 +43,12 @@ class MessageWindow extends React.Component {
     var apiPath = this.state.apiPath;
     var userId = this.state.userId;
     var sessionToken = this.state.sessionToken;
-    var chatId = this.state.chatId;
+    var chatId = localStorage.chatid;
     var chatMessages = [];
 
     var requestUrl =
       apiURL + apiPath + userId + "&" + sessionToken + "&" + chatId;
+    console.log(requestUrl);
     var chatMessages = $.get({
       url: requestUrl,
       success: function(result) {
@@ -47,8 +62,6 @@ class MessageWindow extends React.Component {
   update;
 
   render() {
-    console.log(localStorage.userid);
-    console.log(localStorage.token);
     var messages;
 
     if (this.state.chatMessages.length !== 0) {

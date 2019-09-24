@@ -37,7 +37,6 @@ router.post("/:username&:pass", function(req, res, next) {
           if (results.length !== 1) {
             res.json(errors.returnError("userNotFound"));
           } else {
-            var res = results[0];
             attemptConnection(results);
           }
         }
@@ -75,6 +74,7 @@ router.post("/:username&:pass", function(req, res, next) {
     returnObject.userId = userId;
     returnObject.token = token;
     returnObject.errors = null;
+    console.log(token);
 
     res.json(returnObject);
   };
@@ -124,7 +124,6 @@ var createSessionToken = function(userId) {
       conn.release();
     }
   });
-
   return token;
 };
 

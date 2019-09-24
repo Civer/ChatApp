@@ -5,7 +5,16 @@ import "bootstrap/dist/css/bootstrap.css";
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isLoggedIn: props.loginState };
+    this.state = { isLoggedIn: this.props.isLoggedIn };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // You don't have to do this check first, but it can help prevent an unneeded render
+    if (nextProps.isLoggedIn !== this.state.isLoggedIn) {
+      this.setState({
+        isLoggedIn: nextProps.isLoggedIn
+      });
+    }
   }
 
   logout() {

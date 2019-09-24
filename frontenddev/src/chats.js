@@ -8,6 +8,8 @@ import Chat from "./chat";
 class Chats extends React.Component {
   constructor(props) {
     super(props);
+    this.reloadMessageWindow = this.reloadMessageWindow.bind(this);
+    this.reloadChats = this.reloadChats.bind(this);
     this.state = {
       isLoggedIn: true,
       openChats: [],
@@ -15,9 +17,27 @@ class Chats extends React.Component {
       apiPath: "activechat/",
       userId: localStorage.userid,
       sessionToken: localStorage.token,
-      noOpenChats: false
+      noOpenChats: false,
+      reloadChatFlag: this.props.reloadChatFlag
     };
     this.runAPICall = this.runAPICall.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // You don't have to do this check first, but it can help prevent an unneeded render
+    if (nextProps.reloadChatFlag !== this.state.reloadChatFlag) {
+      this.setState({
+        reloadChatFlag: nextProps.reloadChatFlag
+      });
+    }
+  }
+
+  reloadMessageWindow() {
+    this.props.reloadMessageWindow();
+  }
+
+  reloadChats() {
+    this.props.reloadChats();
   }
 
   componentDidMount() {
@@ -52,9 +72,10 @@ class Chats extends React.Component {
 
   render() {
     var chats;
-
+    console.log(this.state.openChats.length);
     if (this.state.openChats.length !== 0) {
       var openChats = this.state.openChats;
+
       chats = [];
       for (var i = 0; i < openChats.length; i++) {
         var chat = openChats[i];
@@ -67,9 +88,15 @@ class Chats extends React.Component {
         } else {
           loginName = openChats[i].userName1;
         }
-        //console.log(loginName);
 
-        chats.push(<Chat key={i} userName={loginName} is={id} />);
+        chats.push(
+          <Chat
+            key={i}
+            userName={loginName}
+            id={id}
+            reloadMessageWindow={this.reloadMessageWindow.bind(this)}
+          />
+        );
       }
     } else {
       if (this.state.noOpenChats) {
@@ -81,6 +108,7 @@ class Chats extends React.Component {
 
     return (
       <div className="messageWindow">
+        <p>Open Chats</p>
         <div>{chats}</div>
       </div>
     );

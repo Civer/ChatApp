@@ -115,7 +115,16 @@ router.get("/:userid&:session&:partnerid", function(req, res, next) {
       if (err) throw err;
       var dbo = db.db("chatDB");
 
-      var query = { $or: [{ userId1: userid }, { userId2: userid }] };
+      var query = {
+        $and: [
+          {
+            $or: [{ userId1: userid }, { userId2: userid }]
+          },
+          {
+            $or: [{ userId1: partnerid }, { userId2: partnerid }]
+          }
+        ]
+      };
 
       dbo
         .collection("chats")
@@ -146,6 +155,8 @@ router.get("/:userid&:session&:partnerid", function(req, res, next) {
         lastTimeAndDate: new Date(),
         state: 1
       };
+
+      console.log(newChatObject);
 
       dbo.collection("chats").insertOne(newChatObject, function(err, result) {
         if (err) throw err;

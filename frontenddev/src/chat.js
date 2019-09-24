@@ -12,7 +12,8 @@ class Chat extends React.Component {
   }
 
   openChat() {
-    localStorage.openChat = this.state.id;
+    localStorage.chatid = this.state.id;
+    this.props.reloadMessageWindow();
   }
 
   render() {
