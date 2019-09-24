@@ -53,6 +53,11 @@
   border-radius: 5px;
 }
 
+.messageWindow {
+  overflow: auto;
+  max-height: 530px;
+}
+
 .logoutButton {
   float: right;
   width: 150px;

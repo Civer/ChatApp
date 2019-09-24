@@ -25,6 +25,12 @@ class SignUp extends React.Component {
     this.props.back(message);
   }
 
+  listenForEnter(e) {
+    if (e.charCode === 13) {
+      this.register(e);
+    }
+  }
+
   handleInputChange(e) {
     var eventTarget = e.target;
     var value = eventTarget.value;
@@ -51,47 +57,56 @@ class SignUp extends React.Component {
     var formPassword = this.state.password;
     var formEmail = this.state.email;
 
-    var apiURL = this.state.apiURL;
-    var apiPath = this.state.apiPath;
-    var returns = [];
+    if (formUsername === "" || formPassword === "" || formEmail === "") {
+      if (formUsername === "")
+        this.setState({ error: "Username can't be empty" });
+      if (formPassword === "")
+        this.setState({ error: "Password can't be empty" });
+      if (formEmail === "") this.setState({ error: "Email can't be empty" });
+    } else {
+      var apiURL = this.state.apiURL;
+      var apiPath = this.state.apiPath;
+      var returns = [];
 
-    var requestUrl =
-      apiURL + apiPath + formUsername + "&" + formPassword + "&" + formEmail;
+      var requestUrl =
+        apiURL + apiPath + formUsername + "&" + formPassword + "&" + formEmail;
 
-    var returns = $.post({
-      url: requestUrl,
-      success: function(result) {
-        returns = result.users;
+      var returns = $.post({
+        url: requestUrl,
+        success: function(result) {
+          returns = result.users;
 
-        if (result.validCall === false) {
-          if (result.errors) {
-            switch (result.errors.id) {
-              case 700:
-                this.state.error = "Username or Mail already taken!";
-                break;
-              default:
-                this.state.error = "Backend Error!";
-                break;
+          if (result.validCall === false) {
+            if (result.errors) {
+              switch (result.errors.id) {
+                case 700:
+                  this.state.error = "Username or Mail already taken!";
+                  break;
+                default:
+                  this.state.error = "Backend Error!";
+                  break;
+              }
+            } else {
+              this.state.error = "Backend Error!";
             }
           } else {
-            this.state.error = "Backend Error!";
           }
-        } else {
-        }
 
-        this.state.returns = returns;
-        this.setState({ returns: this.state.returns });
+          this.state.returns = returns;
+          this.setState({ returns: this.state.returns });
 
-        if (this.state.error !== null) {
-          this.back({ type: "error", message: this.state.error });
-        } else {
-          this.back({
-            type: "success",
-            message: "Success. Check your emails for verification information."
-          });
-        }
-      }.bind(this)
-    });
+          if (this.state.error !== null) {
+            this.back({ type: "error", message: this.state.error });
+          } else {
+            this.back({
+              type: "success",
+              message:
+                "Success. Check your emails for verification information."
+            });
+          }
+        }.bind(this)
+      });
+    }
   }
 
   render() {
@@ -111,6 +126,7 @@ class SignUp extends React.Component {
           placeholder="Login"
           value={this.state.formUsername}
           onChange={this.handleInputChange.bind(this)}
+          onKeyPress={this.listenForEnter.bind(this)}
           required
           autoFocus
         ></input>
@@ -125,6 +141,7 @@ class SignUp extends React.Component {
           placeholder="Email"
           value={this.state.formEmail}
           onChange={this.handleInputChange.bind(this)}
+          onKeyPress={this.listenForEnter.bind(this)}
           required
         ></input>
         <label htmlFor="inputPassword" className="sr-only">
@@ -138,8 +155,11 @@ class SignUp extends React.Component {
           placeholder="Password"
           value={this.state.formPassword}
           onChange={this.handleInputChange.bind(this)}
+          onKeyPress={this.listenForEnter.bind(this)}
           required
         ></input>
+        <p></p>
+        <p className="error">{this.state.error}</p>
         <p></p>
         <button
           className="btn btn-lg btn-primary btn-block"
