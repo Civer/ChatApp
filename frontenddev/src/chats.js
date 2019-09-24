@@ -87,7 +87,6 @@ class Chats extends React.Component {
         } else {
           loginName = openChats[i].userName1;
         }
-
         chats.push(
           <Chat
             key={i}

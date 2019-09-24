@@ -113,8 +113,6 @@ class Search extends React.Component {
 
           //Update Chatlist!
         }
-
-        this.state.returns = returns;
         this.setState({ returns: this.state.returns });
         this.props.reloadChats();
       }.bind(this)

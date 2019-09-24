@@ -161,15 +161,16 @@ router.get("/:userid&:session&:partnerid", function(req, res, next) {
       dbo.collection("chats").insertOne(newChatObject, function(err, result) {
         if (err) throw err;
         console.log("Insertion completed");
-        returnChatOpenedProperly();
+        returnChatOpenedProperly(result._id);
         db.close();
       });
     });
   };
 
   //Returns token - Called after all password checks returned true
-  var returnChatOpenedProperly = function() {
+  var returnChatOpenedProperly = function(id) {
     returnObject.validChatRequest = true;
+    returnObject.chatid = id;
     returnObject.errors = null;
 
     res.json(returnObject);

@@ -10,13 +10,14 @@ class MessageContainer extends React.Component {
     this.reloadChat = this.reloadChat.bind(this);
     this.state = {
       isLoggedIn: true,
-      messageWindowNeedsReload: this.props.messageWindowNeedsReload
+      messageWindowNeedsReload: this.props.messageWindowNeedsReload,
+      messageWindowNewPost: this.props.messageWindowNewPost
     };
   }
 
   reloadChat() {
     this.setState({
-      messageWindowNeedsReload: !this.state.messageWindowNeedsReload
+      messageWindowNewPost: !this.state.messageWindowNewPost
     });
   }
 
@@ -37,6 +38,7 @@ class MessageContainer extends React.Component {
         <div>
           <MessageWindow
             messageWindowNeedsReload={this.state.messageWindowNeedsReload}
+            messageWindowNewPost={this.state.messageWindowNewPost}
           />
         </div>
       );

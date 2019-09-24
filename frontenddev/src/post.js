@@ -16,7 +16,8 @@ class Post extends React.Component {
       chatId: localStorage.chatid,
       message: "",
       error: "",
-      sendingMessage: false
+      sendingMessage: false,
+      value: ""
     };
   }
 
@@ -27,17 +28,17 @@ class Post extends React.Component {
   }
 
   updateMessageInformation(e) {
-    this.setState({ message: e.target.value });
+    this.setState({ message: e.target.value, value: e.target.value });
   }
 
   sendPost() {
-    this.setState({ sendingMessage: true });
+    this.setState({ sendingMessage: true, value: "" });
 
     var apiURL = this.state.apiURL;
     var apiPath = this.state.apiPath;
     var userId = this.state.userId;
     var sessionToken = this.state.sessionToken;
-    var chatId = this.state.chatId;
+    var chatId = localStorage.chatid;
     var message = this.state.message;
     var returns = [];
 
@@ -110,10 +111,11 @@ class Post extends React.Component {
                     Message
                   </label>
                   <input
-                    type="email"
-                    id="inputEmail"
+                    type="post"
+                    id="inputPost"
                     className="form-control"
                     placeholder="Message"
+                    value={this.state.value}
                     onKeyPress={this.listenForEnter.bind(this)}
                     onChange={this.updateMessageInformation.bind(this)}
                     required
